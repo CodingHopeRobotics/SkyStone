@@ -1,9 +1,10 @@
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -32,13 +33,13 @@ public class SkystoneTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            double leftPower;
-            double rightPower;
+            double leftPower; //Create variable for power of left drive motor
+            double rightPower;  //Create variable for power of right drive motor
 
-            double drive = -gamepad1.left_stick_y;
-            double turn  =  gamepad1.right_stick_x;
-            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+            double drive = -gamepad1.left_stick_y;  //use the left stick to power drive motors
+            double turn  =  gamepad1.right_stick_x;  //use right stick to controller drive turning
+            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ; //calculate the power given for left drive motor
+            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;  //calculate the power given for right drive motor
 
             leftDrive.setPower(leftPower);
             rightDrive.setPower(rightPower);
