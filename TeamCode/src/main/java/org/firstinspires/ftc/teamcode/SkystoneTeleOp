@@ -16,6 +16,8 @@ public class SkystoneTeleOp extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
+    private DcMotor leftIn = null;
+    private DcMotor rightIn = null;
 
 @Override
     public void runOpMode() {
@@ -28,6 +30,12 @@ public class SkystoneTeleOp extends LinearOpMode {
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
 
+        leftIn  = hardwareMap.get(DcMotor.class, "left_intake);
+        rightIn = hardwareMap.get(DcMotor.class, "right_intake");
+
+        leftIn.setDirection(DcMotor.Direction.FORWARD);
+        rightIn.setDirection(DcMotor.Direction.REVERSE);
+        
         waitForStart();
         runtime.reset();
 
@@ -44,9 +52,21 @@ public class SkystoneTeleOp extends LinearOpMode {
             leftDrive.setPower(leftPower);
             rightDrive.setPower(rightPower);
 
-telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
             telemetry.update();
+            
+            double intakePower = 0.2;
+            
+            if(gampad1.right_trigger) {
+                rightIn.setPower(intakePower);
+                leftIn.setPower(intakePower);
+            }
+            
+            if(gamepad1.left_trigger) {
+                rightIn.setPower(-intakePower);
+                leftIn.setPower(-intakePower);
+            }
         }
     }
 }
